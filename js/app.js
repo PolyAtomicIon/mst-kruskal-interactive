@@ -1,25 +1,149 @@
 // initialize our map
-var map = L.map('map', {
-    center:[-1.09713135, 37.014170107681], //center map to jkuat
-    zoom:10 //set the zoom level
-});
+function initMap() {
+  // initialize our map
+  map = L.map("map", {
+    center: [47.32341, 67.240768], //center map to jkuat
+    zoom: 5, //set the zoom level
+  });
 
-//add openstreet baselayer to the map 
-var OpenStreetMap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+  //add openstreet baselayer to the map
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+  }).addTo(map);
 
+  L.Routing.control({
+    router: L.Routing.mapbox(
+      "eyJ1IjoicG9seWF0b21pY2lvbiIsImEiOiJjbDJiaTg4eXUwZmltM2xwOXdpeWN0bjd0In0.ZnOeC3NJy6ucfdlGpl3HMA"
+    ),
+  });
+}
+// get data from cities.json
+async function getCitiesData() {
+  const response = await fetch("./data/cities.json");
+  const Cities = await response.json();
+  cities = Cities.map(city => {
+    city.isChosen = true;
+    return city
+  })
+  return cities;
+}
 
-// define a blank geoJSON Layer
-var buildings = L.geoJSON(null);
+function initGraph() {
+  graph = new Graph(cities.length);
+  calculateDistances();
+  var res = graph.MST();
+  console.log(res);
+  visualizeMST(res.result);
+}
 
-//get the geojson data with ajax, and add it to the blank layer we created
-$.getJSON('../data/bui.geojson',function(data){
-	buildings.addData(data);
-	map.fitBounds(buildings.getBounds());
-});
+function calculateDistances() {
+  console.log(cities);
 
-// finally add the layer to the map
-buildings.addTo(map);
+  cities.forEach((city, index) => {
+    let start = {
+      id: index,
+      city: city.city,
+      cord: L.latLng(city.lat, city.lng),
+    };
 
+    cities.forEach((anotherCity, index1) => {
+      if (city.city == anotherCity.city) return;
+
+      let destination = {
+        id: index1,
+        city: anotherCity.city,
+        cord: L.latLng(anotherCity.lat, anotherCity.lng),
+      };
+
+      getDistanceBetweenTwoCities(start, destination);
+    });
+  });
+  console.log(graph);
+}
+
+function getDistanceBetweenTwoCities(location1, location2) {
+  let distance = calcCrow(
+    location1.cord.lat,
+    location1.cord.lng,
+    location2.cord.lat,
+    location2.cord.lng
+  );
+
+  graph.add_edge({
+    a: location1.id,
+    b: location2.id,
+    w: distance,
+  });
+  graph.add_edge({
+    a: location2.id,
+    b: location1.id,
+    w: distance,
+  });
+}
+//This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+function calcCrow(lat1, lon1, lat2, lon2) {
+  var R = 6371; // km
+  var dLat = toRad(lat2 - lat1);
+  var dLon = toRad(lon2 - lon1);
+  var lat1 = toRad(lat1);
+  var lat2 = toRad(lat2);
+
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d;
+}
+
+// Converts numeric degrees to radians
+function toRad(Value) {
+  return (Value * Math.PI) / 180;
+}
+
+async function visualizeMST(edges) {
+  for (let edge of edges) {
+    getRealDistanceBetweenTwoCities(edge.a, edge.b);
+  }
+}
+
+function delay(t) {
+  return new Promise(resolve => setTimeout(resolve, t));
+}
+
+function getRealDistanceBetweenTwoCities(locationId1, locationId2) {
+  let location1 = cities[locationId1];
+  let location2 = cities[locationId2];
+
+  let start = {
+    city: location1.city,
+    cord: L.latLng(location1.lat, location1.lng),
+  };
+  let destination = {
+    city: location2.city,
+    cord: L.latLng(location2.lat, location2.lng),
+  };
+
+  L.marker(start.cord).addTo(map);
+  L.marker(destination.cord).addTo(map);
+  L.polyline.antPath([start.cord, destination.cord]).addTo(map);
+
+  // L.Routing.control({
+  //   waypoints: [start.cord, destination.cord],
+  //   routeWhileDragging: false,
+  //   lineOptions: {
+  //     styles: [{ color: "red", opacity: 1, weight: 2 }],
+  //   },
+  //   showAlternatives: false,
+  // })
+  //   .addTo(map);
+}
+
+var map;
+
+var routes = {};
+var graph = null;
+var cities = [];
+
+initMap();
+getCitiesData();
