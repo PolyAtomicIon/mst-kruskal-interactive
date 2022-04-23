@@ -41,6 +41,7 @@ function initCitiesList() {
   $(".cities-list").simsCheckbox();
   CITIES.forEach((city) => {
     $(`#${city.index}`).click((e) => {
+      console.log(e)
       var id = e.target.id;
       CITIES[id].isChosen = !CITIES[id].isChosen;
     });
@@ -130,6 +131,8 @@ function toRad(Value) {
 async function visualizeMST(edges) {
   for (let edge of edges) {
     getRealDistanceBetweenTwoCities(edge.a, edge.b);
+    // 
+    await delay(1000)
   }
 }
 
@@ -154,15 +157,17 @@ function getRealDistanceBetweenTwoCities(locationId1, locationId2) {
   L.marker(destination.cord).addTo(map);
   L.polyline.antPath([start.cord, destination.cord]).addTo(map);
 
-  // L.Routing.control({
-  //   waypoints: [start.cord, destination.cord],
-  //   routeWhileDragging: false,
-  //   lineOptions: {
-  //     styles: [{ color: "red", opacity: 1, weight: 2 }],
-  //   },
-  //   showAlternatives: false,
-  // })
-  //   .addTo(map);
+// comment
+
+  L.Routing.control({
+    waypoints: [start.cord, destination.cord],
+    routeWhileDragging: false,
+    lineOptions: {
+      styles: [{ color: "red", opacity: 1, weight: 2 }],
+    },
+    showAlternatives: false,
+  })
+    .addTo(map);
 }
 
 var map;

@@ -38,3 +38,7 @@ body {
   height: 70% !important;
   overflow-y: scroll;
 }
+
+li i {
+  display: none !important;
+}
