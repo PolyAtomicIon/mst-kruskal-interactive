@@ -1,6 +1,10 @@
 // initialize our map
 function initMap() {
   // initialize our map
+  if (map) {
+    map.off();
+    map.remove();
+  }
   map = L.map("map", {
     center: [47.32341, 67.240768], //center map to jkuat
     zoom: 5, //set the zoom level
@@ -21,14 +25,34 @@ function initMap() {
 async function getCitiesData() {
   const response = await fetch("./data/cities.json");
   const Cities = await response.json();
-  cities = Cities.map(city => {
-    city.isChosen = true;
-    return city
-  })
-  return cities;
+  CITIES = Cities.map((city, index) => {
+    city.index = index;
+    city.isChosen = false;
+    return city;
+  });
+  initCitiesList();
+  return CITIES;
+}
+
+function initCitiesList() {
+  CITIES.forEach((city) => {
+    $(".cities-list").append(`<li id="${city.index}"> ${city.city} </li>`);
+  });
+  $(".cities-list").simsCheckbox();
+  CITIES.forEach((city) => {
+    $(`#${city.index}`).click((e) => {
+      var id = e.target.id;
+      CITIES[id].isChosen = !CITIES[id].isChosen;
+    });
+  });
 }
 
 function initGraph() {
+  initMap();
+
+  cities = CITIES.filter((city) => city.isChosen);
+  console.log(cities);
+
   graph = new Graph(cities.length);
   calculateDistances();
   var res = graph.MST();
@@ -80,7 +104,9 @@ function getDistanceBetweenTwoCities(location1, location2) {
     w: distance,
   });
 }
-//This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+
+//This function takes in latitude and longitude of two location
+// and returns the distance between them as the crow flies (in km)
 function calcCrow(lat1, lon1, lat2, lon2) {
   var R = 6371; // km
   var dLat = toRad(lat2 - lat1);
@@ -108,7 +134,7 @@ async function visualizeMST(edges) {
 }
 
 function delay(t) {
-  return new Promise(resolve => setTimeout(resolve, t));
+  return new Promise((resolve) => setTimeout(resolve, t));
 }
 
 function getRealDistanceBetweenTwoCities(locationId1, locationId2) {
@@ -140,10 +166,13 @@ function getRealDistanceBetweenTwoCities(locationId1, locationId2) {
 }
 
 var map;
-
 var routes = {};
 var graph = null;
+var CITIES = [];
 var cities = [];
 
-initMap();
 getCitiesData();
+
+$(document).ready(function () {
+  $("#startEngine").click(initGraph);
+});

@@ -5,7 +5,6 @@ html, body, #container {
 }
 
 body {
-  padding-top: 50px;
 }
 
 /*this is important to give the map a height*/
@@ -16,4 +15,26 @@ body {
 
 .leaflet-routing-container {
   display: none;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.row {
+  height: calc(100vh - 70px);
+}
+
+.left-map {
+  background: #000;
+}
+
+.control {
+  padding-top: 10px;
+  text-align: left;
+}
+
+.cities-list {
+  height: 70% !important;
+  overflow-y: scroll;
 }
