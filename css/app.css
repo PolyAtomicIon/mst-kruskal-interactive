@@ -1,44 +1,40 @@
-html, body, #container {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
 body {
+  margin: 0;
 }
 
-/*this is important to give the map a height*/
-#map {
-  width: auto;
+.layout {
+  background: red;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 70px;
+  background: green;
+}
+main {
   height: 100%;
+  background: orange;
+  flex-grow: 1;
+  display: flex;
 }
 
-.leaflet-routing-container {
-  display: none;
-}
-
-.navbar {
-  margin-bottom: 0;
-}
-
-.row {
-  height: calc(100vh - 70px);
-}
-
-.left-map {
-  background: #000;
+#map {
+  width: 70%;
+  flex-grow: 1;
+  background: yellow;
 }
 
 .control {
-  padding-top: 10px;
-  text-align: left;
+  width: 30%;
+  background: indigo;
 }
 
-.cities-list {
-  height: 70% !important;
-  overflow-y: scroll;
-}
-
-li i {
-  display: none !important;
+footer {
+  height: 140px;
+  background: blue;
 }

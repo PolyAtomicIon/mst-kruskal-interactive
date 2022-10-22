@@ -38,7 +38,6 @@ function initCitiesList() {
   CITIES.forEach((city) => {
     $(".cities-list").append(`<li id="${city.index}"> ${city.city} </li>`);
   });
-  $(".cities-list").simsCheckbox();
   CITIES.forEach((city) => {
     $(`#${city.index}`).click((e) => {
       console.log(e)
