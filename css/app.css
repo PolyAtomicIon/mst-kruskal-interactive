@@ -13,8 +13,13 @@ body {
 }
 
 header {
+  color: white;
+  letter-spacing: 2px;
+  font-weight: bold;
   height: 70px;
-  background: green;
+  background: black;
+  text-align: center;
+  font-family: sans-serif;
 }
 main {
   height: 100%;
@@ -57,6 +62,15 @@ main {
 }
 
 footer {
-  height: 140px;
-  background: blue;
+  color: white;
+  letter-spacing: 1px;
+  height: 100px;
+  background: black;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: cyan;
 }
