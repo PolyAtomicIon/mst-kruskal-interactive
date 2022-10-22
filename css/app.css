@@ -16,6 +16,16 @@ header {
   height: 70px;
   background: green;
 }
+.burger{
+  float: right;
+  padding: 15px 10px 0px 0px;
+  display: none;
+}
+.close{
+  position: absolute;
+  right: 0;
+  display: none;
+}
 main {
   height: 100%;
   background: orange;
@@ -37,4 +47,31 @@ main {
 footer {
   height: 140px;
   background: blue;
+}
+
+@media screen and (max-width:560px) {
+  .header{
+    width: 70%;
+  }
+  .control {
+    display: none;
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  .control--active {
+    display: block;
+  }
+  .burger {
+    display: flex;
+    z-index: 1;
+    
+  }
+  .close{
+    z-index: 3;
+  }
+  
 }
