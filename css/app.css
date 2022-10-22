@@ -70,7 +70,7 @@ footer {
   font-family: sans-serif;
 }
 
-a:link, a:visited, a:hover, a:active {
+footer a:link, a:visited, a:hover, a:active {
   text-decoration: none;
   color: cyan;
 }
