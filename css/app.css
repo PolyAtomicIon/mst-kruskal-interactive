@@ -35,14 +35,36 @@ main {
 }
 
 .control {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   background: indigo;
+}
+
+#startEngine {
+  align-self: flex-end;
+  box-sizing: border-box;
+  width: 200px;
+  height: 40px;
+}
+
+.cities-list {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  border: 1px;
+  border-color: black;
+}
+
+.li {
+  display: inline-block;
 }
 
 footer {
   color: white;
   letter-spacing: 1px;
-  height: 10  0px;
+  height: 100px;
   background: black;
   text-align: center;
   font-family: sans-serif;
