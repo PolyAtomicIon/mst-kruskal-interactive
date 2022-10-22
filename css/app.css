@@ -21,6 +21,16 @@ header {
   text-align: center;
   font-family: sans-serif;
 }
+.burger{
+  float: right;
+  padding: 15px 10px 0px 0px;
+  display: none;
+}
+.close{
+  position: absolute;
+  right: 0;
+  display: none;
+}
 main {
   height: 100%;
   background: orange;
@@ -39,6 +49,7 @@ main {
   flex-direction: column;
   width: 30%;
   background: indigo;
+  z-index: 1000;
 }
 
 #startEngine {
@@ -73,4 +84,31 @@ footer {
 footer a:link, a:visited, a:hover, a:active {
   text-decoration: none;
   color: cyan;
+}
+
+@media screen and (max-width:560px) {
+  .header{
+    width: 70%;
+  }
+  .control {
+    display: none;
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  .control--active {
+    display: block;
+  }
+  .burger {
+    display: flex;
+    z-index: 1;
+    
+  }
+  .close{
+    z-index: 3;
+  }
+  
 }
