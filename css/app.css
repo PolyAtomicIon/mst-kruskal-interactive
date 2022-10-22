@@ -13,8 +13,13 @@ body {
 }
 
 header {
+  color: white;
+  letter-spacing: 2px;
+  font-weight: bold;
   height: 70px;
-  background: green;
+  background: black;
+  text-align: center;
+  font-family: sans-serif;
 }
 .burger{
   float: right;
@@ -40,13 +45,45 @@ main {
 }
 
 .control {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   background: indigo;
+  z-index: 1000;
+}
+
+#startEngine {
+  align-self: flex-end;
+  box-sizing: border-box;
+  width: 200px;
+  height: 40px;
+}
+
+.cities-list {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  border: 1px;
+  border-color: black;
+}
+
+.li {
+  display: inline-block;
 }
 
 footer {
-  height: 140px;
-  background: blue;
+  color: white;
+  letter-spacing: 1px;
+  height: 100px;
+  background: black;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: cyan;
 }
 
 @media screen and (max-width:560px) {
