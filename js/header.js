@@ -1,27 +1,24 @@
 const nav = document.getElementById("control");
-const closeBtn = document.getElementById("close");
 const start = document.getElementById("startEngine");
+const burger = document.getElementById("burger");
 
-function showMenu() {
-    const btn = document.getElementById("burger");
-    btn.onclick = () => {
-        nav.classList.add('control--active');
-    closeBtn.style.display = 'flex';
-  };
+function toggleMenu() {
+  if( burger.classList.contains('open') ) {
+    closeMenu();
   }
-  function closeMenu() {
-      closeBtn.onclick = () => {
-        closeBtn.style.display = 'none';
-        nav.classList.remove('control--active');
-      };
-    }
-    function startEngine() {
-      start.onclick = () => {
-        closeBtn.style.display = 'none';
-        nav.classList.remove('control--active');
-        };
-      }
+  else{
+    openMenu();
+  }
+}
 
-showMenu();
-closeMenu();
-startEngine();
+function openMenu() {
+  nav.classList.add('control--active');
+  burger.classList.add('open');
+}
+function closeMenu() {
+  nav.classList.remove('control--active');
+  burger.classList.remove('open');
+}
+
+burger.onclick = toggleMenu;
+start.onclick = closeMenu;
