@@ -3,7 +3,7 @@ body {
 }
 
 .layout {
-  background: red;
+  /* background: red; */
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -33,7 +33,7 @@ header {
 }
 main {
   height: 100%;
-  background: orange;
+  /* background: orange; */
   flex-grow: 1;
   display: flex;
 }
@@ -41,35 +41,76 @@ main {
 #map {
   width: 70%;
   flex-grow: 1;
-  background: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: yellow; */
 }
 
+#map h1{
+  font-family: sans-serif;
+  text-align: center
+}
 .control {
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
   width: 30%;
-  background: indigo;
+  background: #eee;
   z-index: 1000;
+  overflow: hidden;
+  border-left: 2px solid #000;
 }
 
 #startEngine {
-  align-self: flex-end;
   box-sizing: border-box;
   width: 200px;
   height: 40px;
+  margin-left: 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  border-color: #67a160;
+  background: #7cc474;
 }
+
+#startEngine:hover {
+  background: #67a160;
+}
+
 
 .cities-list {
-  align-self: flex-start;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   list-style-type: none;
-  border: 1px;
-  border-color: black;
+  margin: 0;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0;
+  padding-top: 10px;
+  height: 500px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  background: #f9f9cd;
 }
 
-.li {
+.city {
   display: inline-block;
+  padding: 8px 4px;
+  padding-left: 20px;
+  background-color: #f9f9cd;
+  cursor: pointer;
+  transition: 0.2s background-color ease;
+}
+.city:hover {
+  background-color: #e8e8a0;
+}
+
+.city:active, .city:focus, .city--active {
+  background-color: #7cc474;
+}
+.city--active:hover {
+  background: #67a160;
 }
 
 footer {
@@ -110,7 +151,7 @@ footer a:link, footer a:visited, footer a:hover, foooter a:active {
   position: absolute;
   height: 4px;
   width: 100%;
-  background: #d3531a;
+  background: #ffffff;
   border-radius: 9px;
   opacity: 1;
   left: 0;
@@ -157,6 +198,10 @@ footer a:link, footer a:visited, footer a:hover, foooter a:active {
   transform: rotate(-135deg);
 }
 
+.leaflet-routing-container {
+  display: none;
+}
+
 @media screen and (max-width:560px) {
   .header{
     width: 70%;
@@ -164,11 +209,14 @@ footer a:link, footer a:visited, footer a:hover, foooter a:active {
   .control {
     display: none;
     width: 100%;
-  z-index: 1000;
+    z-index: 1000;
     position: absolute;
     height: 100%;
     left: 0;
     top: 0;
+  }
+  .cities-list {
+    height: 82%;
   }
   .control--active {
     display: block;

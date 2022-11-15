@@ -36,12 +36,14 @@ async function getCitiesData() {
 
 function initCitiesList() {
   CITIES.forEach((city) => {
-    $(".cities-list").append(`<li id="${city.index}"> ${city.city} </li>`);
+    $(".cities-list").append(`<li id="${city.index}" class="city"> ${city.city} </li>`);
   });
   CITIES.forEach((city) => {
     $(`#${city.index}`).click((e) => {
       console.log(e)
       var id = e.target.id;
+      console.log(e.target)
+      e.target.classList.toggle('city--active');
       CITIES[id].isChosen = !CITIES[id].isChosen;
     });
   });
