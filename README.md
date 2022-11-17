@@ -2,11 +2,11 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
+<div>
 
-  <h3 align="center">mst-kruskal-interactive</h3>
+  <h3>mst-kruskal-interactive</h3>
 
-  <p align="center">
+  <p>
     Kruskal interactive web application for calculating the shortest route between cities in Kazakhstan
     <br />
     <a href="https://polyatomicion.github.io/mst-kruskal-interactive/"><strong>DEMO</strong></a>
