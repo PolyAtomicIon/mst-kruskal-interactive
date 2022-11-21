@@ -21,7 +21,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This project is aiming for finding the shortest route between cities in Kazakhstan by using kruskal algorithm. By choBuiltosing the cities in the list our application will search the shortest route and illustrate them in the map with red lines.
+This project is aiming for finding the shortest route between cities in Kazakhstan by using kruskal algorithm. By choosing the cities in the list our application will search the shortest route and illustrate them in the map with red lines.
 
 ### Built With
 
